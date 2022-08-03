@@ -4,7 +4,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import path from "path";
 import pkg from "../package.json";
-import { create } from "express-handlebars";
+import ejs from "ejs";
 import productRoutes from "./routes/products.routes";
 import usersRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
@@ -21,15 +21,9 @@ app.set("port", process.env.PORT || 4000);
 app.set("json spaces", 4);
 
 app.set("views", path.join(__dirname, "views"));
-app.engine(
-  ".hbs",
-  create({
 
-    defaulLayout: "main",
-    extname: ".hbs",
-  }).engine
-);
-app.set("view engine", ".hbs");
+
+app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, "public")));
 
 // Middlewares
