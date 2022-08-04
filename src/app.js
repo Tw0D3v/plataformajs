@@ -18,7 +18,7 @@ createAdmin();
 // Settings
 
 app.set("port", process.env.PORT || 4000);
-/* app.set("json spaces", 4); */
+ app.set("json spaces", 4); 
 
 
 
@@ -36,14 +36,11 @@ app.use(express.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
 
   
-   /* res.json({
-    message: "Welcome to my Products API",
-    name: app.get("pkg").name,
-    version: app.get("pkg").version,
-    description: app.get("pkg").description,
-    author: app.get("pkg").author, */
+    res.json({
+    message: "Welcome to my Products API"
   }); 
 
+});
 
 // Routes
 app.use("/api/products", productRoutes);
