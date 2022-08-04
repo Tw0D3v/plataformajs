@@ -16,7 +16,7 @@ router.use((req, res, next) => {
 
 
 router.get("/",(req,res)=>{
-  res.render("index")
+ 
 })
 
 router.post(
@@ -28,7 +28,7 @@ router.post(
 );
 
 router.get("/signup",(req,res)=>{
-  res.render("signup");
+
 
 })
 
@@ -37,12 +37,12 @@ router.post("/signin", authCtrl.signin);
 
 
 router.get("/signin",(req,res)=>{
-  res.render("signin")
+
 })
 
 
 router.get("/home",(req,res)=>{
-  res.render("home")
+
 })
 
 

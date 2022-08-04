@@ -8,15 +8,15 @@ export const signUp = async (req, res) => {
 
   try {
   
-      res.redirect("signin")
+    
     
     // Getting the Request Body
     const { username, email, password, roles } = req.body;
     // Creating a new User Object
-    const newUser = new User({
+    const newUser =await new User({
       username,
       email,
-      password: await User.encryptPassword(password),
+      password:  User/* .encryptPassword */(password),
     });
 
   

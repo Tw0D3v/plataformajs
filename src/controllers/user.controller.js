@@ -27,7 +27,6 @@ export const createUser = async (req, res) => {
       email: savedUser.email,
       roles: savedUser.roles,
     });
-     res.redirect("signin")
    } catch (error) {
     console.error(error);
   }

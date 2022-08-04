@@ -1,48 +1,37 @@
 import React, { Component } from 'react';
-import axios  from 'axios'; 
+
 
 
 export default class Signin extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 'Please write an essay about your favorite DOM element.'
+    };
 
-
-state ={    users: [], username:"",email:"",password:"",_id:"",};
-
-async componentDidMount() {
-    this.getUser();
-    console.log(this.state.users);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
 
-  getUser = async () => {
-    const res = await axios.post("http://localhost:4000/api/auth/signup");
-    this.setState({ users: res.data });
-    this.getUser();
-  };
+  handleSubmit(event) {
+    alert('An essay was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
 
-
-  onSubmit = async () => {
-    
-    const res = await axios.post("http://localhost:4000/api/auth/signup", {
-      username: this.state.username,
-    });
-    this.setState({ username: "" ,emial:"",password:""});
-    this.getUser();
-    console.log(res);
-  };
-
-    
-    render() {
-
-        return (
-            <div className='formulario'>
-                <form onSubmit={this.onSubmit}>
-                    <input type="text" name='username' placeholder='username' />
-                    <input type="text" name='email' placeholder='@email.com'  />
-                    <input type="password" name='password' placeholder='password' />
-                    <button type='submit'> enviar</button>
-                </form>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Essay:
+          <textarea value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
 }
