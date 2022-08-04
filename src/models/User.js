@@ -1,40 +1,50 @@
-import { Schema, model } from "mongoose"
-/* import bcrypt from "bcryptjs" */
+import mongoose from "mongoose"
+ import bcrypt from "bcryptjs"
 
-const userSchema = new Schema(
+const productSchema = new mongoose.Schema(
     {
-
-        username: {
-            type: String,
-            unique: true,
+      username: {
+        type: String,
+        unique: true,
+      },
+      email: {
+        type: String,
+        unique: true,
+      },
+      password: {
+        type: String,
+        required: true,
+      },
+      roles: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Role",
         },
-        email: {
-            type: String,
-            unique: true,
-        },
-        password: {
-            type: String,
-            
-        },
-        roles: [{
-            type: Schema.Types.ObjectId,
-            ref: "Role",
-        },
-        ],
-
-    }, {
-    timestamps: true,
-    versionKey: false
-}
-);
-
-/* userSchema.statics.encryptPassword = async (password)=>{
+      ],
+    },
+    {
+      timestamps: true,
+      versionKey: false,
+    }
+  );
   
+  productSchema.statics.encryptPassword = async (password) => {
     const salt = await bcrypt.genSalt(10);
-    return await bcrypt.hash(password.password,salt) ;
-};
-userSchema.statics.comparePassword = async (password, receivedPassword) => {
+    return await bcrypt.hash(password, salt);
+  };
+  
+  productSchema.statics.comparePassword = async (password, receivedPassword) => {
     return await bcrypt.compare(password, receivedPassword)
-  } */
-
-export default model("User", userSchema)
+  }
+  
+  productSchema.pre("save", async function (next) {
+    const user = this;
+    if (!user.isModified("password")) {
+      return next();
+    }
+    const hash = await bcrypt.hash(user.password, 10);
+    user.password = hash;
+    next();
+  })
+  
+  export default mongoose.model("User", productSchema);

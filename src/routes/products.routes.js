@@ -1,8 +1,8 @@
 import { Router } from "express";
 const router = Router();
 
-import * as productsCtrl from "../controllers/products.controller";
-import { authJwt } from "../middlewares";
+import * as productsCtrl from "../controllers/products.controller.js";
+import { authJwt } from "../middlewares/index.js";
 
 router.get("/", productsCtrl.getProducts);
 

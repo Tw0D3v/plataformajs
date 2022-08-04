@@ -4,7 +4,6 @@ import morgan from "morgan";
 import helmet from "helmet";
 
 
-import pkg from "../package.json";
 
 import productRoutes from "./routes/products.routes.js";
 import usersRoutes from "./routes/user.routes.js";
@@ -17,7 +16,7 @@ createRoles();
 createAdmin();
 
 // Settings
-app.set("pkg", pkg);
+
 app.set("port", process.env.PORT || 4000);
 /* app.set("json spaces", 4); */
 
@@ -43,8 +42,8 @@ app.get("/", (req, res) => {
     version: app.get("pkg").version,
     description: app.get("pkg").description,
     author: app.get("pkg").author, */
- 
-});
+  }); 
+
 
 // Routes
 app.use("/api/products", productRoutes);
